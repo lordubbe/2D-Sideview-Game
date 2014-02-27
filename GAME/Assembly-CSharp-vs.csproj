@@ -46,11 +46,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\FreezeBullet.cs" />
      <Compile Include="Assets\Scripts\DestroyParticleOnDeath.cs" />
      <Compile Include="Assets\Scripts\FireChargeBullet.cs" />
      <Compile Include="Assets\Scripts\FireChargeGun.cs" />
      <Compile Include="Assets\Scripts\FlipBasedOnDirection.cs" />
+     <Compile Include="Assets\Scripts\FreezeBullet.cs" />
      <Compile Include="Assets\Scripts\FreezeGun.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\MachineGunFire.cs" />
