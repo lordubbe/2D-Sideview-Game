@@ -10,9 +10,15 @@ public class FireChargeBullet : MonoBehaviour {
 	private bool wasAlreadyFired = false;
 	public float killTime = 2f;
 	public float fireSpeed = 1000f;
+	public float damage;
 	
 	private Vector3 maxLengthForCharge;
-	
+
+	void Start () {
+
+	}
+
+
 	// Update is called once per frame	
 	void Update () {
 		maxLengthForCharge = Vector3.Normalize(GameObject.Find("FireChargeGun").GetComponent<RotateBasedOnMouse>().lookPos)*1.5f;
@@ -50,13 +56,22 @@ public class FireChargeBullet : MonoBehaviour {
 		rigidbody2D.velocity = direction*bulletSpeed*Time.deltaTime;
 	}
 
+	void killBullet(){
+		Instantiate(FireChargeExplosion, transform.position, Quaternion.identity);
+		GameObject.Destroy(gameObject);
+		if(gameObject.GetComponent<FireChargeGun>().bulletsInGame != null){
+			GameObject.Find("FireChargeGun").GetComponent<FireChargeGun>().bulletsInGame-=1;
+		}
+	}
+
 	void OnCollisionEnter2D(Collision2D collider){
-		if(collider.gameObject.name != this.name && collider.gameObject.name != "Player"){//if it's not another instance of itself and not the player
+		if(collider.gameObject.name != this.name){//if it's not another instance of itself and not the player
 			//print ("hit "+collider.transform.name);//PRINT WHAT IT HITS
-			Instantiate(FireChargeExplosion, transform.position, Quaternion.identity);
-			GameObject.Destroy(gameObject);
-			if(gameObject.GetComponent<FireChargeGun>().bulletsInGame != null){
-				GameObject.Find("FireChargeGun").GetComponent<FireChargeGun>().bulletsInGame-=1;
+			killBullet();
+			//If bullet hits player
+			if(collider.gameObject.tag == "Player"){//on player hit
+				collider.gameObject.GetComponent<HealthScript>().health -= damage;
+				killBullet();
 			}
 		}
 	}
