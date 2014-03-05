@@ -16,7 +16,7 @@ GameObject:
   - 61: {fileID: 6100000}
   m_Layer: 0
   m_Name: FireChargeBullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,6 +73,7 @@ MonoBehaviour:
   bulletSpeed: 30
   killTime: 2
   fireSpeed: 1000
+  damage: 5
 --- !u!198 &19800000
 ParticleSystem:
   m_ObjectHideFlags: 1
