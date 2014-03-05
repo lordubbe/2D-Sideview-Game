@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\FreezeBullet.cs" />
      <Compile Include="Assets\Scripts\FreezeGun.cs" />
      <Compile Include="Assets\Scripts\GameController.cs" />
+     <Compile Include="Assets\Scripts\HealthScript.cs" />
      <Compile Include="Assets\Scripts\MachineGunFire.cs" />
      <Compile Include="Assets\Scripts\Movement.cs" />
      <Compile Include="Assets\Scripts\RotateBasedOnMouse.cs" />
