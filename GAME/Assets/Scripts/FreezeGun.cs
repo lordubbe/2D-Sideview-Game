@@ -30,7 +30,8 @@ public class FreezeGun : MonoBehaviour {
 				bulletsInGame++;
 				nextShotTime = Time.time+ShootInterval;
 				*/
-				print ("FREEZE LOL");
+				//print ("FREEZE LOL");
+					Instantiate (bullet, bulletSpawn.transform.position, Quaternion.identity);
 				nextShotTime = Time.time+ShootInterval;
 			}
 		}
