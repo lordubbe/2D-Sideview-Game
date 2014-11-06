@@ -1,12 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/FreezeBullet.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/FireChargeBullet.cs">
     <Files>
-      <File FileName="../../GitHub folder/OOSE_HandIn/Assets/Jacob/LevelSpawn.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/FreezeGun.cs" Line="34" Column="6" />
-      <File FileName="Assets/Scripts/FreezeBullet.cs" Line="18" Column="3" />
-      <File FileName="Assets/Scripts/FireChargeBullet.cs" Line="37" Column="49" />
-      <File FileName="Assets/Scripts/WeaponPickUp.cs" Line="19" Column="24" />
+      <File FileName="Assets/Scripts/FireChargeBullet.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

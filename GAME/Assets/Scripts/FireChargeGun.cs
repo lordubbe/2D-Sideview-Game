@@ -12,7 +12,7 @@ public class FireChargeGun : MonoBehaviour {
 	private float nextShotTime;
 	public int maxBullets = 10;
 	public int bulletsInGame;
-
+	public Vector3 lookDir;
 
 	// Use this for initialization
 	void Start () {
@@ -25,14 +25,24 @@ public class FireChargeGun : MonoBehaviour {
 		if(bulletsInGame < 0){
 			bulletsInGame = 0;
 		}
-		//print (bulletsInGame);
 		//SHOOT
 		if(gameObject.GetComponent<WeaponPickUp>().pickedUp){//GameObject.Find ("FireChargeGun").GetComponent<WeaponPickUp>().pickedUp){
+			lookDir = Vector3.Normalize(GetComponent<RotateBasedOnMouse>().lookPos);
+			Debug.DrawRay (bulletSpawn.transform.position, lookDir, Color.green);
+
 			if(Input.GetButton("Fire1") && nextShotTime < Time.time && bulletsInGame < maxBullets){
-				Instantiate(bullet, bulletSpawn.transform.position, Quaternion.identity);// as GameObject;
+				Transform projectile = Instantiate(bullet, bulletSpawn.transform.position, transform.rotation) as Transform;// as GameObject;
+				projectile.GetComponent<FireChargeBullet>()._mode = FireChargeBullet.Mode.Primary;
+				bulletsInGame++;
+				nextShotTime = Time.time+ShootInterval;
+			}else if(Input.GetButton("Fire2") && nextShotTime < Time.time && bulletsInGame < maxBullets){
+				Transform projectile = Instantiate(bullet, bulletSpawn.transform.position, transform.rotation) as Transform;// as GameObject;
+				projectile.GetComponent<FireChargeBullet>()._mode = FireChargeBullet.Mode.Secondary;
 				bulletsInGame++;
 				nextShotTime = Time.time+ShootInterval;
 			}
 		}
+
 	}
+
 }

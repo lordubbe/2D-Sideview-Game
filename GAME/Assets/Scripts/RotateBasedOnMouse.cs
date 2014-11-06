@@ -4,15 +4,16 @@ using System.Collections;
 public class RotateBasedOnMouse : MonoBehaviour {
 
 	public Vector3 lookPos;
-	// Use this for initialization
-	void Start () {
-	
+	public GameObject player;
+
+	void Start(){
+		player = GameObject.FindWithTag("Player");
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		//position at player
-		transform.position = GameObject.FindWithTag("Player").transform.position;
+		transform.position = player.transform.position;
 
 		Vector3 mousePos = Input.mousePosition;
 		mousePos.z = 10; //The distance from the camera to the player object
