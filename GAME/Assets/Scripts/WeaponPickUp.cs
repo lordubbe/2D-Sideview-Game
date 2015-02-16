@@ -25,16 +25,16 @@ public class WeaponPickUp : MonoBehaviour {
 				gameObject.AddComponent<Rigidbody2D>();
 				gameObject.GetComponent<SpriteRenderer>().sprite = defaultSprite;
 				GameObject player = GetComponent<RotateBasedOnMouse>().player;
-				rigidbody2D.AddForce((player.rigidbody2D.velocity.normalized+Vector2.up)*5f, ForceMode2D.Impulse);
+				GetComponent<Rigidbody2D>().AddForce((player.GetComponent<Rigidbody2D>().velocity.normalized+Vector2.up)*5f, ForceMode2D.Impulse);
 				if(player.transform.localScale.x > 0){
-					rigidbody2D.AddForce(new Vector2(1f,0), ForceMode2D.Impulse);
+					GetComponent<Rigidbody2D>().AddForce(new Vector2(1f,0), ForceMode2D.Impulse);
 				}else{
-					rigidbody2D.AddForce(new Vector2(-1f,0), ForceMode2D.Impulse);
+					GetComponent<Rigidbody2D>().AddForce(new Vector2(-1f,0), ForceMode2D.Impulse);
 				}
 				Destroy (GetComponent<RotateBasedOnMouse>());
 				dropped = true;
-				gameObject.collider2D.enabled = true;
-				gameObject.collider2D.isTrigger = true;
+				gameObject.GetComponent<Collider2D>().enabled = true;
+				gameObject.GetComponent<Collider2D>().isTrigger = true;
 			}
 		}
 	}
@@ -43,7 +43,7 @@ public class WeaponPickUp : MonoBehaviour {
 		if(col.gameObject.tag == "Player" && !dropped){
 			pickedUp = true;
 			print(col.gameObject.name+" picked up "+gameObject.name);
-			gameObject.collider2D.enabled = false;
+			gameObject.GetComponent<Collider2D>().enabled = false;
 			gameObject.AddComponent<RotateBasedOnMouse>();
 			Destroy(GetComponent<Rigidbody2D>());
 			gameObject.GetComponent<SpriteRenderer>().sprite = pickedUpSprite;
@@ -53,9 +53,8 @@ public class WeaponPickUp : MonoBehaviour {
 
 	void OnTriggerExit2D(Collider2D col){
 		if(col.gameObject.tag == "Player"){
-			print ("exit");
 			dropped = false;
-			gameObject.collider2D.isTrigger = false;
+			gameObject.GetComponent<Collider2D>().isTrigger = false;
 		}
 	}
 

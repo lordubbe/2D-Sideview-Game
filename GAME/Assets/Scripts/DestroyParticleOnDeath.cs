@@ -5,7 +5,7 @@ public class DestroyParticleOnDeath : MonoBehaviour {
 
 	void LateUpdate () 
 	{
-		if (!particleSystem.IsAlive())
+		if (!GetComponent<ParticleSystem>().IsAlive())
 			Object.Destroy (this.gameObject);	
 	}
 }

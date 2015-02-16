@@ -31,7 +31,12 @@ public class FireChargeBullet : MonoBehaviour {
 
 	// Update is called once per frame	
 	void Update () {
-		maxLengthForCharge = Vector3.Normalize(fireChargeGun.GetComponent<RotateBasedOnMouse>().lookPos)*1;
+		if(fireChargeGun.GetComponent<RotateBasedOnMouse>()){
+			print (fireChargeGun.GetComponent<RotateBasedOnMouse>().lookPos);
+			maxLengthForCharge = Vector3.Normalize(fireChargeGun.GetComponent<RotateBasedOnMouse>().lookPos)*1;
+		}else{
+			maxLengthForCharge = Vector3.down;
+		}
 		Debug.DrawLine(bulletSpawn.transform.position, transform.position);//DEBUG LINE
 
 		if(_mode != null){
@@ -42,7 +47,7 @@ public class FireChargeBullet : MonoBehaviour {
 					}
 				}else{
 					if(!wasAlreadyFired){//Release charge
-/*change this pls*/		rigidbody2D.AddForce((new Vector2(fireChargeGun.GetComponent<FireChargeGun>().lookDir.x, fireChargeGun.GetComponent<FireChargeGun>().lookDir.y)+fireChargeGun.GetComponent<RotateBasedOnMouse>().player.rigidbody2D.velocity.normalized)*bulletSpeed, ForceMode2D.Impulse);
+/*change this pls*/		GetComponent<Rigidbody2D>().AddForce((new Vector2(fireChargeGun.GetComponent<FireChargeGun>().lookDir.x, fireChargeGun.GetComponent<FireChargeGun>().lookDir.y)+fireChargeGun.GetComponent<RotateBasedOnMouse>().player.GetComponent<Rigidbody2D>().velocity.normalized)*bulletSpeed, ForceMode2D.Impulse);
 /*!!!!!!!!!!!!!!!*/		wasAlreadyFired = true;
 						StartCoroutine(waitAndKill(killTime));
 					}
@@ -51,9 +56,9 @@ public class FireChargeBullet : MonoBehaviour {
 			if(_mode == Mode.Primary){//normal shot
 				if(!wasAlreadyFired){
 					Vector2 lookDir = new Vector2(fireChargeGun.GetComponent<FireChargeGun>().lookDir.x, fireChargeGun.GetComponent<FireChargeGun>().lookDir.y);
-					Vector2 playerVel = fireChargeGun.GetComponent<RotateBasedOnMouse>().player.rigidbody2D.velocity.normalized;
+					Vector2 playerVel = fireChargeGun.GetComponent<RotateBasedOnMouse>().player.GetComponent<Rigidbody2D>().velocity.normalized;
 					print (playerVel);
-					rigidbody2D.AddForce((lookDir).normalized*bulletSpeed, ForceMode2D.Impulse);
+					GetComponent<Rigidbody2D>().AddForce((lookDir).normalized*bulletSpeed, ForceMode2D.Impulse);
 					wasAlreadyFired = true;
 				}
 				StartCoroutine(waitAndKill(killTime));
@@ -78,7 +83,7 @@ public class FireChargeBullet : MonoBehaviour {
 
 	IEnumerator waitAndEnableCollider(float time){
 		yield return new WaitForSeconds(time);
-		collider2D.enabled = true;
+		GetComponent<Collider2D>().enabled = true;
 		//gameObject.AddComponent<DontGoThroughThings>();
 	}
 
@@ -86,7 +91,7 @@ public class FireChargeBullet : MonoBehaviour {
 	void trackMouse(){
 		//direction = (Input.mousePosition-Camera.main.WorldToScreenPoint(transform.position));//AT MOUSE POSITION
 		direction = (bulletSpawn.transform.position-(maxLengthForCharge*-0.8f)-transform.position);//DEFINED MAX-LENGTH (0.8f)
-		rigidbody2D.velocity = direction*bulletSpeed*60*Time.deltaTime;
+		GetComponent<Rigidbody2D>().velocity = direction*bulletSpeed*60*Time.deltaTime;
 	}
 
 	void killBullet(){

@@ -14,7 +14,7 @@ public class FreezeBullet : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		direction = Vector3.Normalize ((Input.mousePosition-Camera.main.WorldToScreenPoint(transform.position)))*100;
-		rigidbody2D.velocity = direction*bulletSpeed*Time.deltaTime;
+		GetComponent<Rigidbody2D>().velocity = direction*bulletSpeed*Time.deltaTime;
 
 		StartCoroutine(waitAndKill(1.3f));
 	}
@@ -31,7 +31,7 @@ public class FreezeBullet : MonoBehaviour {
 
 	IEnumerator waitAndEnableCollider(float time){
 		yield return new WaitForSeconds(time);
-		transform.collider2D.enabled = true;
+		transform.GetComponent<Collider2D>().enabled = true;
 	}
 
 	void killBullet(){

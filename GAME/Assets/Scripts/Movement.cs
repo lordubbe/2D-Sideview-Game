@@ -4,7 +4,7 @@ using System;
 
 public class Movement : MonoBehaviour {
 	
-	public float MoveSpeed = 6f;
+	public float MoveSpeed = 600f;
 	public float jumpHeight = 1900f;
 	
 	public bool isJumping = false;
@@ -30,12 +30,12 @@ public class Movement : MonoBehaviour {
 		Vector2 direction = Vector2.zero;
 		float speed = MoveSpeed;
 		
-		oldVelocity = rigidbody2D.velocity;
+		oldVelocity = GetComponent<Rigidbody2D>().velocity;
 		direction.x = Input.GetAxis("Horizontal");
 		direction.y = 0;
 
 		newVelocity = new Vector2(direction.x*speed, oldVelocity.y);
-		rigidbody2D.velocity = newVelocity;
+		GetComponent<Rigidbody2D>().velocity = newVelocity;
 
 		//CAST RAYS
 			//BOTTOM (GROUND DETECTION)
@@ -73,26 +73,26 @@ public class Movement : MonoBehaviour {
 
 		//PREVENT DOUBLE-JUMPING
 		if(isGrabbingWall || leftRayDist<0.5 || rightRayDist<0.5){
-			if(rigidbody2D.velocity.y == 0){
+			if(GetComponent<Rigidbody2D>().velocity.y == 0){
 				isJumping = false;
 			}
 		}else if(!isGrabbingWall && (leftRayDist>0.5 && rightRayDist>0.5)){
-			if(rigidbody2D.velocity.y != 0){	
+			if(GetComponent<Rigidbody2D>().velocity.y != 0){	
 				isJumping = true; 
 			}
 		}
 		//JUMP
 		if(Input.GetButtonDown("Jump") && !isJumping){
-			rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 0);
+			GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x, 0);
 			isJumping = true;
 			if(isGrabbingWall && Input.GetAxisRaw("Horizontal")<0){
 				//print ("WALL JUMP");
-				rigidbody2D.AddForce(new Vector2(jumpHeight/2, 0f));
+				GetComponent<Rigidbody2D>().AddForce(new Vector2(jumpHeight/2, 0f));
 			}else if(isGrabbingWall && Input.GetAxisRaw("Horizontal")>0){
 				//print ("WALL JUMP");
-				rigidbody2D.AddForce(new Vector2(-jumpHeight/2, 0f));
+				GetComponent<Rigidbody2D>().AddForce(new Vector2(-jumpHeight/2, 0f));
 			}
-			rigidbody2D.AddForce(new Vector2(0, jumpHeight));
+			GetComponent<Rigidbody2D>().AddForce(new Vector2(0, jumpHeight));
 		}
 
 	}

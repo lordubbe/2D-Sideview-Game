@@ -12,9 +12,9 @@ public class FreezeBulletIceBehavior : MonoBehaviour {
 
 
 	void Start(){
-		materialColor = gameObject.renderer.material.color;
+		materialColor = gameObject.GetComponent<Renderer>().material.color;
 		StartCoroutine(waitAndKill (freezeDuration));
-		startAlpha = gameObject.renderer.material.color.a;
+		startAlpha = gameObject.GetComponent<Renderer>().material.color.a;
 		currentAlpha = startAlpha;
 		originalParticles = gameObject.GetComponentInChildren<ParticleSystem>();
 	}
@@ -26,7 +26,7 @@ public class FreezeBulletIceBehavior : MonoBehaviour {
 
 	void Update(){
 		//fade out ice object
-		gameObject.renderer.material.color = new Color (materialColor.r,materialColor.g,materialColor.b, currentAlpha);
+		gameObject.GetComponent<Renderer>().material.color = new Color (materialColor.r,materialColor.g,materialColor.b, currentAlpha);
 		//fade out ice object particles
 		gameObject.GetComponentInChildren<ParticleSystem>().startColor = new Color(originalParticles.startColor.r, originalParticles.startColor.g, originalParticles.startColor.b, currentAlpha);
 
@@ -38,7 +38,7 @@ public class FreezeBulletIceBehavior : MonoBehaviour {
 
 		//disable collider one currentAlpha is basically invisible
 		if(currentAlpha<0.1f){
-		   gameObject.collider2D.enabled = false;
+		   gameObject.GetComponent<Collider2D>().enabled = false;
 		}
 	}
 
